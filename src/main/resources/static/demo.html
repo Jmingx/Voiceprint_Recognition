@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+<div id="fileUploadDiv">
+    <div>
+        <input type="file" id="song"/><br/>
+        <button type="button" onclick="uploadFile1()">upload</button>
+    </div>
+
+    <div>
+        <input type="file" id="song2"/><br/>
+        <button type="button" onclick="uploadFile2()">match</button>
+    </div>
+</div>
+<script type="text/javascript">
+    function uploadFile1() {
+        var file = document.getElementById("song").files[0];
+        //创建新的表单数据对象
+        var formData = new FormData();
+        formData.append("song", file);
+        formData.append("songName",file.name);
+        //默认使用同步请求
+        $.ajax({
+            url: "/song/uploadSong",
+            type: "POST",
+            contentType: false,
+            datatype: "text",
+            data: formData,
+            contentType: false,
+            processData: false, // 告诉jQuery不要去处理发送的数据
+            success: function (data) {
+                alert(data.msg);
+            }
+        });
+    }
+
+    function uploadFile2() {
+        var file = document.getElementById("song2").files[0];
+        //创建新的表单数据对象
+        var formData = new FormData();
+        formData.append("song", file);
+        formData.append("songName",file.name);
+        //默认使用同步请求
+        $.ajax({
+            url: "/song/match",
+            type: "POST",
+            contentType: false,
+            datatype: "text",
+            data: formData,
+            contentType: false,
+            processData: false, // 告诉jQuery不要去处理发送的数据
+            success: function (data) {
+                alert(data.msg);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
